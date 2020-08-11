@@ -24,8 +24,8 @@ namespace GPSExif
             {
                 new DataColumn("Filename", typeof(string)),
                 new DataColumn("Latitude", typeof(string)),
-                new DataColumn("Altitude",typeof(string)),
                 new DataColumn("Longitude", typeof(string)),
+                new DataColumn("Altitude",typeof(string)),
                 new DataColumn("Make", typeof(string)),
                 new DataColumn("Model",typeof(string)),
                 new DataColumn("ModifyDateTime", typeof(string)),
@@ -185,11 +185,14 @@ namespace GPSExif
                         KML.Create(photos, path3);
                     }
 
-                    using (XLWorkbook wb = new XLWorkbook())
+                    if (dtGPSData.Rows.Count > 0)
                     {
-                        string path = Path.Combine(excelReportDestination.FullName, "Photo Location Report.xlsx");
-                        wb.Worksheets.Add(dtGPSData, "GPS");
-                        wb.SaveAs(path);
+                        using (XLWorkbook wb = new XLWorkbook())
+                        {
+                            string path = Path.Combine(excelReportDestination.FullName, "Photo GPS Report.xlsx");
+                            wb.Worksheets.Add(dtGPSData, "GPS");
+                            wb.SaveAs(path);
+                        }
                     }
                 }
                 else
